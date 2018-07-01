@@ -4,13 +4,10 @@ class StudentsController < ApplicationController
     @student = Student.new
   end
 
-
   def create
-    @student = Student.new
-    @student.student_first_name = params[:student_first_name]
-    @student.student_last_name = params[:student_last_name]
+    @student = Student.new(student_params(:first_name, :last_name))
     @student.save
-    redirect_to school_class_path(@student)
+    redirect_to student_path(@student)
   end
 
   def show
@@ -23,7 +20,7 @@ class StudentsController < ApplicationController
 
   def update
     @student = Student.find(params[:id])
-    @student.update(params.require(:student))
-    redirect_to school_class_path(@student)
+    @student.update(student_params(:first_name, :last_name))
+    redirect_to student_path(@student)
   end
 end
